@@ -1,15 +1,22 @@
-import 'package:flutter/material.dart';
+import 'dart:collection';
+
+import 'package:flutter/foundation.dart';
 import 'package:todoey/models/task.dart';
 
 class TaskData with ChangeNotifier {
-  List<Task> taskList = [
-    Task(name: 'Task1'),
-    Task(name: 'Task2'),
-    Task(name: 'Task3'),
-  ];
+  // ignore: prefer_final_fields
+  List<Task> _taskList = [];
+
+  UnmodifiableListView<Task> get taskList {
+    return UnmodifiableListView(_taskList);
+  }
 
   void addTask(Task task) {
-    taskList.add(task);
+    _taskList.add(task);
     notifyListeners();
+  }
+
+  int get taskCount {
+    return _taskList.length;
   }
 }

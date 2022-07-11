@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todoey/models/task.dart';
 import 'package:todoey/models/task_data.dart';
 import 'package:todoey/screens/add_tasks_screen.dart';
 
 import '../widgets/task_list.dart';
 
-class TaskScreen extends StatefulWidget {
+class TaskScreen extends StatelessWidget {
   const TaskScreen({Key? key}) : super(key: key);
-
-  @override
-  State<TaskScreen> createState() => _TaskScreenState();
-}
-
-class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,7 +45,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    '${Provider.of<TaskData>(context).taskList.length} tasks',
+                    '${Provider.of<TaskData>(context).taskCount} tasks',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 19,
@@ -61,7 +54,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 ],
               ),
             ),
-            TaskList(taskList: Provider.of<TaskData>(context).taskList),
+            const TaskList(),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -76,12 +69,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom,
                   ),
-                  child: AddTask(
-                    addTaskCallback: (newTaskTitle) {
-                      Provider.of<TaskData>(context, listen: false)
-                          .addTask(Task(name: newTaskTitle));
-                    },
-                  ),
+                  child: const AddTask(),
                 ),
               ),
             );

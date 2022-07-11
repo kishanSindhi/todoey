@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/models/task.dart';
+import 'package:todoey/models/task_data.dart';
 
 class AddTask extends StatefulWidget {
   const AddTask({
     Key? key,
-    this.addTaskCallback,
   }) : super(key: key);
-  final Function(String)? addTaskCallback;
 
   @override
   State<AddTask> createState() => _AddTaskState();
@@ -63,7 +64,8 @@ class _AddTaskState extends State<AddTask> {
                 backgroundColor: MaterialStateProperty.all(Colors.pinkAccent),
               ),
               onPressed: () {
-                widget.addTaskCallback!(taskName);
+                final Task task = Task(name: taskName);
+                Provider.of<TaskData>(context, listen: false).addTask(task);
                 Navigator.of(context).pop();
               },
               child: const Text('Add'),
