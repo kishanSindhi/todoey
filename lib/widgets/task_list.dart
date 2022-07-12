@@ -31,14 +31,13 @@ class _TaskListState extends State<TaskList> {
             return ListView.builder(
               itemCount: taskData.taskCount,
               itemBuilder: ((context, index) {
+                final task = taskData.taskList[index];
                 return TaskTile(
-                  taskTitle: taskData.taskList[index].name,
-                  isChecked:
-                      Provider.of<TaskData>(context).taskList[index].isDone,
+                  taskTitle: task.name,
+                  isChecked: task.isDone,
+                  onDoubleTap: () => taskData.deleteTask(task),
                   onChanged: (bool? checkBoxState) {
-                    setState(() {
-                      taskData.taskList[index].toggleDone();
-                    });
+                    taskData.updateTask(task);
                   },
                 );
               }),
